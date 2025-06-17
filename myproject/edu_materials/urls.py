@@ -1,21 +1,23 @@
 from django.urls import include, path
-from rest_framework.routers import DefaultRouter
+from django.urls import path
+from rest_framework.routers import SimpleRouter
 
-from . import views
+from .apps import EduMaterialsConfig
+from .views import (CourseViewSet, LessonCreateApiView,
+                       LessonDestroyApiView, LessonListApiView,
+                       LessonRetrieveApiView, LessonUpdateApiView)
 
-app_name = 'edu_materials'
+app_name = EduMaterialsConfig.name
 
-router = DefaultRouter()
-router.register(r"courses", views.CourseViewSet, basename="course")
+router = SimpleRouter()
+router.register("courses", CourseViewSet)
 
 urlpatterns = [
-    path("", include(router.urls)),
-    path(
-        "lessons/", views.LessonListCreateAPIView.as_view(), name="lesson-list-create"
-    ),
-    path(
-        "lessons/<int:pk>/",
-        views.LessonRetrieveUpdateDestroyAPIView.as_view(),
-        name="lesson-retrieve-update-destroy",
-    ),
+    path("lessons/", LessonListApiView.as_view(), name="lessons_list"),
+    path("lessons/<int:pk>", LessonRetrieveApiView.as_view(), name="lessons_retrieve"),
+    path("lessons/create/", LessonCreateApiView.as_view(), name="lessons_create"),
+    path("lessons/<int:pk>/delete/",LessonDestroyApiView.as_view(),name="lessons_delete"),
+    path("lessons/<int:pk>/update/", LessonUpdateApiView.as_view(), name="lessons_update"),
 ]
+
+urlpatterns += router.urls
