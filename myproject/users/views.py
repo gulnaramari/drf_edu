@@ -1,10 +1,8 @@
 from rest_framework import viewsets, permissions
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
-from tutorial.quickstart.serializers import UserSerializer
-
 from .models import Payment, User
-from .serializers import PaymentSerializer
+from .serializers import PaymentSerializer, UserSerializer
 from rest_framework.generics import CreateAPIView
 
 

@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'users',
     'edu_materials',
+    'django_filters',
 
 ]
 
@@ -48,6 +49,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
+}
 
 ROOT_URLCONF = 'config.urls'
 
